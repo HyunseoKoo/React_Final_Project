@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const AccountBookSelector = props => {
-	const { category, setCategory, year, setYear, month, setMonth } = props;
+	const { category, setCategory, year, setYear, month, setMonth, day, setDay } = props;
 
 	return (
 		<>

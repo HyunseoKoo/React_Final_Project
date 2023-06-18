@@ -13,6 +13,8 @@ const AccountBookDetailInfo = ({
 	category,
 	setYear,
 	setMonth,
+	day,
+	setDay
 }) => {
 	let saleDateArr = [];
 
@@ -146,13 +148,19 @@ const AccountBookDetailInfo = ({
 				}}
 				onDrillDown={e => {
 					setMonth(`0${e.activeStartDate.getMonth() + 1}`);
-					setYear(e.activeStartDate.getFullYear());
+					// setYear(e.activeStartDate.getFullYear());
+					setDay({
+						year: `0${e.activeStartDate.getMonth() + 1}`,
+						month: e.activeStartDate.getFullYear()
+				})
 				}}
 				onActiveStartDateChange={e => {
 					if (e.action === 'next' || e.action === 'prev') {
 						setMonth(`0${e.activeStartDate.getMonth() + 1}`);
+						// setDay({year, month: `0${e.activeStartDate.getMonth() + 1}`})
 					} else if (e.action === 'next2' || e.action === 'prev2') {
 						setYear(e.activeStartDate.getFullYear());
+						// setDay({year: e.activeStartDate.getFullYear(), month})
 					}
 				}}
 			/>

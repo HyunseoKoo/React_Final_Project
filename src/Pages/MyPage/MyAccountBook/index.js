@@ -16,10 +16,15 @@ const AccountBookPage = () => {
 	const [year, setYear] = useState(now.year());
 	const [month, setMonth] = useState(now.format('MM'));
 
-	const firstDay = dayjs(`${year}-${month}-01`);
+	const [day, setDay] = useState({
+		year: now.year(),
+		month: now.format('MM')
+	})
+
+	const firstDay = dayjs(`${day.year}-${day.month}-01`);
 	const lastDay = firstDay.daysInMonth().toString();
-	const start = `${year}-${month}-01`;
-	const end = `${year}-${month}-${lastDay}`;
+	const start = `${day.year}-${day.month}-01`;
+	const end = `${day.year}-${day.month}-${lastDay}`;
 
 	const { data: getAccountBook } = useGetAccountBook({
 		category,
@@ -43,6 +48,8 @@ const AccountBookPage = () => {
 				setYear={setYear}
 				month={month}
 				setMonth={setMonth}
+				day={day}
+				setDay={setDay}
 			/>}
 			<AccountBookSelector
 				category={category}
