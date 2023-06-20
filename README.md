@@ -1,4 +1,4 @@
-## 👀 프로젝트 소개
+# 👀 프로젝트 소개
 <div align="center">
 <img width="20%" src="https://github.com/Frontend-TEAM1/ZoopzoopMarket/assets/117559842/17ed16f5-694b-41c0-a38b-100d6bddaed0"/>
 <br/>
@@ -12,13 +12,13 @@
 마이페이지에서 가계부를 활용해 나의 거래내역을 확인하고<br/> 내가 구매한 아이템의 리뷰를 통한 판매자 신뢰도 평가도 가능합니다☺️
 <br/>
 <br/>
-https://zoopzoop-market.vercel.app/
+[웹사이트 구경하기](https://zoopzoop-market.vercel.app/)
 </div> 
 <br/>
 
-## 🖥️ 서비스 화면
+# 🖥️ 서비스 화면
 
-<캡쳐화면>
+![서비스화면](https://github.com/HyunseoKoo/portfolio/assets/117560047/bc768c57-eeed-4c92-a31d-54166e4785b0)
 
 <br>
 
@@ -153,7 +153,7 @@ https://zoopzoop-market.vercel.app/
 <br>
 
 
-## 👪 팀원
+# 👪 팀원
 
 
 | 구현서 | 김나실 | 박선영 | 이주람 | 이재훈 | 장영승 |
@@ -165,7 +165,7 @@ https://zoopzoop-market.vercel.app/
 
 
 
-## 🛠️ 사용 기술 스택
+# 🛠️ 사용 기술 스택
 
    ![image](https://github.com/Frontend-TEAM1/ZoopzoopMarket/assets/113501460/8c909055-0901-4738-9b00-f859b3324e94)
     
@@ -178,9 +178,29 @@ Latest ✔ | Latest ✔ | Latest ✔ |
 
 <br>
 
+#  역할
+|기능|주기능 개발|리팩터링
+|:--:|:--:|:--:
+|회원가입||O
+|마이페이지 내아이템 보기|O|
+|마이페이지 메뉴바|O|
+|마이페이지 유저정보수정|O
+|마이페이지 프로필 조회|O
+|마이페이지 가계부|O|
+|쿼리 관심사 분리||O
 
-## 협업방식
+<br>
 
-Notion을 통한 Daily 스크럼 + 스프린트 회의 + 칸반보드<br/>
+# 협업방식
+
+### 기획
+Figma 활용 
+❣️[Figma 링크](https://www.figma.com/file/q7b02izl7kucudDRoXtmav/Untitled?type=design&node-id=1-2)
+
 <br/>
-❣️Notion 주소 : https://www.notion.so/ZOOP-ZOOP-c505857b1d7a430e958a79533c3f391e?pvs=4
+
+### 소통
+Notion을 통한 Daily 스크럼 + 스프린트 회의 + 칸반보드 ❣️[Notion 링크](https://www.notion.so/ZOOP-ZOOP-c505857b1d7a430e958a79533c3f391e?pvs=4)
+
+### 코드리뷰
+pull request를 통해 다른 팀원이 리뷰로 피드백을 남기며 코드 수정 후 merge
