@@ -1,7 +1,21 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import MyPageApi from 'Apis/myPageApi';
-import ProductApi from 'Apis/productApi';
+export const InfiniteScrollCustomHook = (key, api, param, ) => {
+    const res = useInfiniteQuery(
+        [key],
+        ({ pageParam = 1}) => api({page: pageParam, param}),
+        {
+            getNextPageParam: (lastPage, allPages) => {
+                const { curPage, endPage } = lastPage.data.pagination;
+				if (curPage < endPage) {
+					return lastPage.data.pagination.curPage + 1;
+				} else return undefined;
+            }
+        }
+    )
+
+};
+
 
 export const useInfiniteMyItem = category => {
 	const res = useInfiniteQuery(
@@ -21,19 +35,6 @@ export const useInfiniteMyItem = category => {
 	return res;
 };
 
-export const useInfiniteSearch = (word, selected, status) => {
-	const res = useInfiniteQuery(
-		['SEARCH_ITEMS', word, selected],
-		({ pageParam = 1 }) =>
-			ProductApi.searchItems(pageParam, word, selected, status),
-		{
-			getNextPageParam: lastPage => {
-				return lastPage.data.pagination.curPage + 1;
-			},
-		},
-	);
-	return res;
-};
 
 export const useInfiniteMyInterest = () => {
 	const res = useInfiniteQuery(
@@ -51,4 +52,3 @@ export const useInfiniteMyInterest = () => {
 	);
 	return res;
 };
-
