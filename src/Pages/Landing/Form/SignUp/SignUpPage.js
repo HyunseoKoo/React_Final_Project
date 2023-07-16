@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import UserApi from 'Apis/userApi';
 
@@ -8,7 +9,7 @@ import FindAddress from 'Components/Address/address';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';
-import { FORM_TYPE } from 'Consts/FormType';
+import { SignupSchema } from 'Consts/FormType';
 import TokenService from 'Repository/TokenService';
 
 import styled from 'styled-components';
@@ -19,6 +20,8 @@ import {
 	flexJustifyCenter,
 } from 'Styles/common';
 import { useNavigate } from 'react-router';
+import PhoneInput from './Components/phoneInput';
+import SignupInput from './Components/signupInput';
 
 const SignUpPage = () => {
 	const [address, setAddress] = useState();
@@ -69,15 +72,20 @@ const SignUpPage = () => {
 	}, []);
 
 	const {
-		register,
 		handleSubmit,
-		setValue,
-		getValues,
-		setError,
-		clearErrors,
-		watch,
+		control,
 		formState: { errors },
-	} = useForm({ mode: 'onChange' });
+		// register,
+		// setValue,
+		getValues,
+		// setError,
+		// clearErrors,
+		watch,
+	} = useForm(
+		{ resolver: yupResolver(SignupSchema),
+		  mode: 'onChange'
+		}
+	);
 
 	const { mutate } = useMutation(info => UserApi.signup(info), {
 		onSuccess: () => {
@@ -90,15 +98,15 @@ const SignUpPage = () => {
 	});
 
 	const onSubmit = data => {
-		const phoneRegExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
-		if (!phoneRegExp.test(data.phone)) {
-			setPhoneMsg('핸드폰 번호 양식이 일치하지 않습니다.');
-			return setError('phone', {
-				shouldFocus: true,
-			});
-		} else {
-			clearErrors('phone');
-		}
+		// const phoneRegExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+		// if (!phoneRegExp.test(data.phone)) {
+		// 	setPhoneMsg('핸드폰 번호 양식이 일치하지 않습니다.');
+		// 	return setError('phone', {
+		// 		shouldFocus: true,
+		// 	});
+		// } else {
+		// 	clearErrors('phone');
+		// }
 
 		const info = {
 			email: data.email,
@@ -129,6 +137,7 @@ const SignUpPage = () => {
 
 	const onCheckNick = async e => {
 		e.preventDefault();
+		console.log("/////////////");
 		const value = getValues('nick');
 
 		try {
@@ -161,7 +170,7 @@ const SignUpPage = () => {
 						<p>회원가입</p>
 					</S.Header>
 					<S.Form onSubmit={handleSubmit(onSubmit)}>
-						<S.InputWrapBtn>
+						{/* <S.InputWrapBtn>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
 								<span>아이디</span>
@@ -183,9 +192,21 @@ const SignUpPage = () => {
 							</S.InputBoxWrap>
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
-						{<S.Error>{idMsg}</S.Error>}
-
-						<S.InputWrap>
+						{<S.Error>{idMsg}</S.Error>} */}
+						<SignupInput
+            				placeholder="test@test.com"
+            				label="이메일"
+            				name="email"
+            				control={control}
+            				errors={errors}
+							doubleCheck={true}
+							error={errors.email}
+							onClick={onCheckId}
+							msg={idMsg}
+							watch={watch}
+          				/>
+		
+						{/* <S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
 								<span>비밀번호</span>
@@ -199,8 +220,19 @@ const SignUpPage = () => {
 								/>
 							</S.InputBoxWrap>
 						</S.InputWrap>
-						{errors.password && <S.Error>{errors.password.message}</S.Error>}
-						<S.InputWrap>
+						{errors.password && <S.Error>{errors.password.message}</S.Error>} */}
+						
+						<SignupInput
+            				placeholder="특수문자, 영어, 숫자 포함 8자이상"
+							type="password"
+            				label="비밀번호"
+            				name="password"
+            				control={control}
+            				errors={errors}
+							doubleCheck={false}
+          				/>
+
+						{/* <S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
 								<span>비밀번호 확인</span>
@@ -221,8 +253,19 @@ const SignUpPage = () => {
 								/>
 							</S.InputBoxWrap>
 						</S.InputWrap>
-						{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
-						<S.InputWrapBtn>
+						{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>} */}
+						
+						<SignupInput
+            				placeholder="PW check"
+							type="password"
+            				label="비밀번호 확인"
+            				name="passwordCheck"
+            				control={control}
+            				errors={errors}
+							doubleCheck={false}
+          				/>
+						
+						{/* <S.InputWrapBtn>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
 								<span>닉네임</span>
@@ -243,8 +286,21 @@ const SignUpPage = () => {
 								</S.CheckBtn>
 							</S.InputBoxWrap>
 						</S.InputWrapBtn>
-						{nickMsg && <S.Error>{nickMsg}</S.Error>}
-						<S.InputWrap>
+						{nickMsg && <S.Error>{nickMsg}</S.Error>} */}
+
+						<SignupInput
+            				placeholder="Nick_Name"
+            				label="닉네임"
+            				name="nickname"
+            				control={control}
+            				errors={errors}
+							doubleCheck={true}
+							error={errors.nick}
+							onClick={onCheckNick}
+							msg={nickMsg}
+          				/>
+
+						{/* <S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
 								<span>전화번호</span>
@@ -275,7 +331,18 @@ const SignUpPage = () => {
 								/>
 							</S.InputBoxWrap>
 						</S.InputWrap>
-						{phoneMsg && <S.Error>{phoneMsg}</S.Error>}
+						{phoneMsg && <S.Error>{phoneMsg}</S.Error>} */}
+
+						<PhoneInput
+            				placeholder="010-0000-0000"
+            				label="핸드폰"
+            				name="phoneNumber"
+            				control={control}
+            				errors={errors}
+            				maxLength="13"
+							doubleCheck={false}
+          				/>
+
 						<S.InputWrapBtn>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
@@ -286,6 +353,7 @@ const SignUpPage = () => {
 								<FindAddress setter={setAddress} />
 							</S.InputBoxWrap>
 						</S.InputWrapBtn>
+
 						<S.BtnWrap>
 							<S.Button
 								type="submit"
